@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 17:17:53 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/04/14 20:00:34 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/04/28 16:49:10 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int main(int ac, char **argv)
     if(5 == ac || 6 == ac)
     {
         check_input(&table, argv);
-        //data_init(&table);
-        //start_procces(&table);
+        data_init(&table);
+        start_procces(&table);
         //clean_procces(&table);
     }
     else

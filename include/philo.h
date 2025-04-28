@@ -5,6 +5,7 @@
 #include <pthread.h>
 #include <sys/time.h>
 #include <limits.h>
+#include <errno.h>
 
 # define RST "\033[0m"
 # define RED "\033[1;31m"
@@ -14,6 +15,36 @@
 # define M "\033[1;35m"
 # define C "\033[1;36m"
 # define W "\033[1;37m"
+
+#define DEBUG_MODE 0
+
+typedef enum    e_opcode
+{
+        LOCK,
+        UNLOCK,
+        INIT,
+        DESTROY,
+        CREATE,
+        JOIN,
+        DETACH,
+}       t_opcode;
+
+typedef enum    e_time_code
+{
+    SECOND,
+    MILLISECOND,
+    MICROSECOND,
+}   t_time_code;
+
+typedef enum e_status
+{
+    EATING,
+    SLEEPING,
+    THINKING,
+    TAKE_FIRST_FORK,
+    TAKE_SECOND_FORK,
+    DIED,
+}       t_philo_status;
 
 typedef pthread_mutex_t t_mtx;
 
@@ -32,10 +63,12 @@ typedef struct s_philo
     int         id;
     long        meals;
     bool        full;
-    long        last_neal;
-    t_fork      left_fork;
-    t_fork      right_fork;
+    long        last_meal;
+    t_fork      *first_fork;
+    t_fork      *second_fork;
     pthread_t   thread_id;
+    t_mtx       philo_mtx;
+    t_table     *table;
     
 }t_philo;
 
@@ -49,8 +82,11 @@ struct s_table
     long        start;
     long        ende;
     bool        ende_program;
+    bool        thread_ready;
+    t_mtx       table_mtx;
+    t_mtx       write_mtx;
     t_fork      *forks;
-    t_philo     *philos;
+    t_philo     *philo;
     
 };
 
@@ -59,3 +95,29 @@ void    error_and_exit(const char *error);
 void    check_input(t_table *table, char **input);
 static const char   *correct_input(const char *str);
 static long ft_atol(const char *str);
+void    *safe_malloc(size_t bytes);
+static void mutex_error(int status, t_opcode opcode);
+void    safe_mtx(t_mtx  *mutex, t_opcode opcode);
+static void thread_error(int status, t_opcode opcode);
+void    safe_thread(pthread_t *thread, void *(*foo)(void *), void *data, t_opcode opcode);
+void    my_usleep(long usec, t_table *table);
+long    gettime(t_time_code time_code);
+
+//init data
+void    data_init(t_table *table);
+
+// setting and getting funktions for bool
+bool    simulation_finish(t_table *table);
+void    set_long(t_mtx *mtx, long *dest, long value);
+long    get_long(t_mtx *mtx, long *value);
+bool    get_bool(t_mtx *mtx, bool *value);
+void set_bool(t_mtx *mtx, bool *dest, bool value);
+
+//sync threads
+void    wait_philo(t_table *table);
+
+//wirte status and Debug status
+void    write_status(t_philo_status status, t_philo *philo, bool debug);
+static void write_status_debug(t_philo_status status, t_philo *philo, long elapsed);
+
+void start_procces(t_table *table);
