@@ -18,6 +18,7 @@
 
 #define DEBUG_MODE 0
 
+
 typedef enum    e_opcode
 {
         LOCK,
@@ -83,6 +84,8 @@ struct s_table
     long        ende;
     bool        ende_program;
     bool        thread_ready;
+    long        threads_running_nbr;
+    pthread_t   monitor;
     t_mtx       table_mtx;
     t_mtx       write_mtx;
     t_fork      *forks;
@@ -90,34 +93,32 @@ struct s_table
     
 };
 
-//utils and errors
+
 void    error_and_exit(const char *error);
 void    check_input(t_table *table, char **input);
-static const char   *correct_input(const char *str);
-static long ft_atol(const char *str);
 void    *safe_malloc(size_t bytes);
-static void mutex_error(int status, t_opcode opcode);
 void    safe_mtx(t_mtx  *mutex, t_opcode opcode);
-static void thread_error(int status, t_opcode opcode);
 void    safe_thread(pthread_t *thread, void *(*foo)(void *), void *data, t_opcode opcode);
 void    my_usleep(long usec, t_table *table);
 long    gettime(t_time_code time_code);
+void    increase_long(t_mtx *mtx, long *value);
 
-//init data
+
 void    data_init(t_table *table);
+void thinking(t_philo *philo, bool pre_sim);
 
-// setting and getting funktions for bool
 bool    simulation_finish(t_table *table);
 void    set_long(t_mtx *mtx, long *dest, long value);
 long    get_long(t_mtx *mtx, long *value);
 bool    get_bool(t_mtx *mtx, bool *value);
 void set_bool(t_mtx *mtx, bool *dest, bool value);
 
-//sync threads
+
 void    wait_philo(t_table *table);
 
-//wirte status and Debug status
 void    write_status(t_philo_status status, t_philo *philo, bool debug);
-static void write_status_debug(t_philo_status status, t_philo *philo, long elapsed);
-
+void de_sync_philo(t_philo *philo);
 void start_procces(t_table *table);
+void   *monitor_dinner(void *daye);
+bool    all_threads_running(t_mtx *mtx, long *threads, long philos);
+void    clean_all(t_table *tabel);

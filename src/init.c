@@ -29,6 +29,7 @@ static void philo_init(t_table *table)
         philo->full = false;
         philo->meals = 0;
         philo->table = table;
+
         safe_mtx(&philo->philo_mtx, INIT);
         assign_forks(philo, table->forks, i);
 
@@ -43,6 +44,7 @@ void    data_init(t_table *table)
     i = -1;
     table->ende_program = false;
     table->thread_ready = false;
+    table->threads_running_nbr = 0;
     safe_mtx(&table->table_mtx, INIT);
     safe_mtx(&table->write_mtx, INIT);
     table->philo = safe_malloc(sizeof(t_philo) * table->philosophers);

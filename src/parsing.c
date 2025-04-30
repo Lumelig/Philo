@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 17:08:01 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/04/28 16:54:26 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/04/30 13:25:28 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,5 @@ void check_input(t_table *table, char **argv)
         table->meals_limit = ft_atol(argv[5]);
     else
         table->meals_limit = -1;
-    printf("%ld\n%ld\n%ld\n%ld\n%ld\n", 
-        table->philosophers, 
-        table->time_to_die, 
-        table->time_to_eat, 
-        table->time_to_sleep, 
-        table->meals_limit);
         
 }

@@ -25,13 +25,13 @@ void    write_status(t_philo_status status, t_philo *philo, bool debug)
 {
     long elapsed;
 
-    elapsed = gettime(MILLISECOND);
+    elapsed = gettime(MILLISECOND) - philo->table->start;
     safe_mtx(&philo->table->write_mtx, LOCK);
     if (debug)
         write_status_debug(status, philo, elapsed);
     else
     {
-        if (TAKE_FIRST_FORK == status || TAKE_SECOND_FORK == status
+        if ((TAKE_FIRST_FORK == status || TAKE_SECOND_FORK == status)
         && !simulation_finish(philo->table))
             printf(M"%-6ld  "C"Philo %d has taken a fork \n"RST, elapsed, philo->id);
         else if (EATING == status && !simulation_finish(philo->table))
@@ -40,7 +40,7 @@ void    write_status(t_philo_status status, t_philo *philo, bool debug)
             printf(M"%-6ld  "B"Philo %d is slleping\n"RST, elapsed, philo->id);
         else if (THINKING == status && !simulation_finish(philo->table))
             printf(M"%-6ld  "Y"Philo %d is thinking\n"RST, elapsed, philo->id);
-        else if (DIED == status && !simulation_finish(philo->table))
+        else if (DIED == status)
             printf(M"%-6ld  "RED"Philo %d is died...\n"RST, elapsed, philo->id);
     }
     safe_mtx(&philo->table->write_mtx, UNLOCK);
