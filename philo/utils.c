@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:21:58 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/01 12:37:13 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/03 15:09:44 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@ void	my_usleep(long usec, t_table *table)
 	long	elapsed;
 	long	remain;
 
+	(void)table;
 	start = gettime(MICROSECOND);
 	while (gettime(MICROSECOND) - start < usec)
 	{
-		if (simulation_finish(table))
-			break ;
 		elapsed = gettime(MICROSECOND);
 		remain = usec - elapsed;
 		if (remain > 1e3)

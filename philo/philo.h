@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:53:11 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/01 12:53:12 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/03 14:28:52 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ struct					s_table
 	long				time_to_sleep;
 	long				time_to_eat;
 	long				meals_limit;
-	long				start;
+	long				start;//philo start 
 	long				ende;
 	bool				ende_program;
 	bool				thread_ready;
