@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:52:52 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/03 15:23:48 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/03 15:36:03 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,23 @@ static void	write_status_debug(t_philo_status status, t_philo *philo,
 //neu schreiben ohne if else.
 void	write_status(t_philo_status status, t_philo *philo, bool debug)
 {
-	if (simulation_finish(philo->table))
-		return ;
 	safe_mtx(&philo->table->write_mtx, LOCK);
 	if (debug)
 		write_status_debug(status, philo,
 			gettime(MILLISECOND) - philo->table->start);
 	else
 	{
-		if ((TAKE_FIRST_FORK == status || TAKE_SECOND_FORK == status))
+		if ((TAKE_FIRST_FORK == status || TAKE_SECOND_FORK == status)
+			&& !simulation_finish(philo->table))
 			printf(M "%-6ld" C "%d has taken a fork\n" RST,
 				gettime(MILLISECOND) - philo->table->start, philo->id);
-		else if (EATING == status)
+		else if (EATING == status && !simulation_finish(philo->table))
 			printf(M "%-6ld" G "%d is eating\n" RST,
 				gettime(MILLISECOND) - philo->table->start, philo->id);
-		else if (SLEEPING == status)
+		else if (SLEEPING == status && !simulation_finish(philo->table))
 			printf(M "%-6ld" B "%d is sleeping\n" RST,
 				gettime(MILLISECOND) - philo->table->start, philo->id);
-		else if (THINKING == status)
+		else if (THINKING == status && !simulation_finish(philo->table))
 			printf(M "%-6ld" Y "%d is thinking\n" RST,
 				gettime(MILLISECOND) - philo->table->start, philo->id);
 		else if (DIED == status)
