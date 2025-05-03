@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:34:16 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/01 12:34:38 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/03 16:02:26 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	philo_died(t_philo *philo)
 		return (false);
 	elapse = gettime(MILLISECOND) - get_long(&philo->philo_mtx,
 			&philo->last_meal);
-	t_to_die = philo->table->time_to_die / 1e3;
+	t_to_die = philo->table->time_to_die;
 	if (elapse > t_to_die)
 		return (true);
 	else

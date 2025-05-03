@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:28:40 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/03 15:12:13 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/03 15:45:39 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,6 @@ void	thinking(t_philo *philo, bool pre_sim)
 {
 	(void)pre_sim;
 	write_status(THINKING, philo, DEBUG_MODE);
-	// long	t_eat;
-	// long	t_think;
-	// long	t_sleep;
-
-	// if (!pre_sim)
-	// 	write_status(THINKING, philo, DEBUG_MODE);
-	// if (philo->table->philosophers % 2 == 0)
-	// 	return ;
-	// t_eat = philo->table->time_to_eat;
-	// t_sleep = philo->table->time_to_sleep;
-	// t_think = t_eat * 2 - t_sleep;
-	// if (t_think < 0)
-	// 	t_think = 0;
-	// my_usleep(t_think * 0.30, philo->table);
 }
 
 void	*one_philo(void *arg)

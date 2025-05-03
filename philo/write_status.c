@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:52:52 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/03 15:36:03 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/03 15:45:14 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void	write_status_debug(t_philo_status status, t_philo *philo,
 		printf("%-6ld %d died\n", elapsed, philo->id);
 }
 
-//neu schreiben ohne if else.
 void	write_status(t_philo_status status, t_philo *philo, bool debug)
 {
 	safe_mtx(&philo->table->write_mtx, LOCK);
