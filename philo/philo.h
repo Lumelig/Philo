@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:53:11 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/06 16:38:24 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:35:05 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void					write_philo_status(char *msg, t_philo *philo);
 // void					write_status(t_philo_status status, t_philo *philo,
 // 							bool debug);
 void					de_sync_philo(t_philo *philo);
-void					start_procces(t_table *table);
+void					start_process(t_table *table);
 void					*monitor_dinner(void *daye);
 bool					all_threads_running(t_mtx *mtx, long *threads,
 							long philos);

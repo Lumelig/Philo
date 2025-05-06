@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 17:17:53 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/01 12:34:07 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:33:02 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int ac, char **argv)
 	{
 		check_input(&table, argv);
 		data_init(&table);
-		start_procces(&table);
+		start_process(&table);
 		clean_all(&table);
 	}
 	else

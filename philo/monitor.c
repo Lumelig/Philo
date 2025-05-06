@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:34:16 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/06 16:37:54 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:04:47 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,21 @@ static bool	philo_died(t_philo *philo)
 	long	elapse;
 	long	t_to_die;
 	long	last_meal_time;
+	bool	is_full;
 
-	if (get_bool(&philo->philo_mtx, &philo->full))
+	pthread_mutex_lock(&philo->philo_mtx);
+	is_full = philo->full;
+	last_meal_time = philo->last_meal;
+	pthread_mutex_unlock(&philo->philo_mtx);
+	if (is_full)
 		return (false);
-	last_meal_time = get_long(&philo->philo_mtx, &philo->last_meal);
 	elapse = gettime(MILLISECOND) - last_meal_time;
 	t_to_die = philo->table->time_to_die;
-	return (elapse > t_to_die);
+	if (elapse > t_to_die)
+	{
+		return (true);
+	}
+	return (false);
 }
 
 void	*monitor_dinner(void *data)

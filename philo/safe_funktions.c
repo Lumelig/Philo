@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:34:52 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/01 12:36:44 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:01:44 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,7 @@ static void	mutex_error(int status, t_opcode opcode)
 
 void	safe_mtx(t_mtx *mutex, t_opcode opcode)
 {
-	if (LOCK == opcode)
-		mutex_error(pthread_mutex_lock(mutex), opcode);
-	else if (UNLOCK == opcode)
-		mutex_error(pthread_mutex_unlock(mutex), opcode);
-	else if (INIT == opcode)
+	if (INIT == opcode)
 		mutex_error(pthread_mutex_init(mutex, NULL), opcode);
 	else if (DESTROY == opcode)
 		mutex_error(pthread_mutex_destroy(mutex), opcode);

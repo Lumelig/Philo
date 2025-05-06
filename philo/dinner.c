@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:28:40 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/06 16:45:22 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:03:28 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	*one_philo(void *arg)
 
 static void	eat(t_philo *philo)
 {
-	safe_mtx(&philo->first_fork->fork, LOCK);
+	pthread_mutex_lock(&philo->first_fork->fork);
 	write_philo_status("has taken a fork", philo);
-	safe_mtx(&philo->second_fork->fork, LOCK);
+	pthread_mutex_lock(&philo->second_fork->fork);
 	write_philo_status("has taken a fork", philo);
 	set_long(&philo->philo_mtx, &philo->last_meal, gettime(MILLISECOND));
 	philo->meals++;
@@ -55,8 +55,8 @@ static void	eat(t_philo *philo)
 	if (philo->table->meals_limit > 0
 		&& philo->meals == philo->table->meals_limit)
 		set_bool(&philo->philo_mtx, &philo->full, true);
-	safe_mtx(&philo->first_fork->fork, UNLOCK);
-	safe_mtx(&philo->second_fork->fork, UNLOCK);
+	pthread_mutex_unlock(&philo->second_fork->fork);
+	pthread_mutex_unlock(&philo->first_fork->fork);
 }
 
 void	*dinner_simulation(void *data)
@@ -81,7 +81,7 @@ void	*dinner_simulation(void *data)
 	return (NULL);
 }
 
-void	start_procces(t_table *table)
+void	start_process(t_table *table)
 {
 	int	i;
 

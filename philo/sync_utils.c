@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:36:56 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/01 12:36:57 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:31:01 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ bool	all_threads_running(t_mtx *mtx, long *threads, long philos)
 	bool	ret;
 
 	ret = false;
-	safe_mtx(mtx, LOCK);
+	pthread_mutex_lock(mtx);
 	if (*threads == philos)
 		ret = true;
-	safe_mtx(mtx, UNLOCK);
+	pthread_mutex_unlock(mtx);
 	return (ret);
 }
 
 void	increase_long(t_mtx *mtx, long *value)
 {
-	safe_mtx(mtx, LOCK);
+	pthread_mutex_lock(mtx);
 	(*value)++;
-	safe_mtx(mtx, UNLOCK);
+	pthread_mutex_unlock(mtx);
 }
 
 void	de_sync_philo(t_philo *philo)
