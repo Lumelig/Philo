@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:53:11 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/04 12:53:20 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/06 16:38:24 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@
 #define C "\033[1;36m"
 #define W "\033[1;37m"
 
-#define DEBUG_MODE 0
-
 typedef enum e_opcode
 {
 	LOCK,
@@ -47,16 +45,6 @@ typedef enum e_time_code
 	MILLISECOND,
 	MICROSECOND,
 }						t_time_code;
-
-typedef enum e_status
-{
-	EATING,
-	SLEEPING,
-	THINKING,
-	TAKE_FIRST_FORK,
-	TAKE_SECOND_FORK,
-	DIED,
-}						t_philo_status;
 
 typedef pthread_mutex_t	t_mtx;
 
@@ -122,8 +110,9 @@ void					set_bool(t_mtx *mtx, bool *dest, bool value);
 
 void					wait_philo(t_table *table);
 
-void					write_status(t_philo_status status, t_philo *philo,
-							bool debug);
+void					write_philo_status(char *msg, t_philo *philo);
+// void					write_status(t_philo_status status, t_philo *philo,
+// 							bool debug);
 void					de_sync_philo(t_philo *philo);
 void					start_procces(t_table *table);
 void					*monitor_dinner(void *daye);

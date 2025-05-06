@@ -54,18 +54,21 @@ run: all
 	$(TARGET) $(ARGS)
 
 # Clone Tester repository
-tester:
+tester: all
 	@git clone https://github.com/MichelleJiam/LazyPhilosophersTester.git tester
-	@echo -e "\033[1;32mTester cloned to ./tester\033[0m 🧪"
+	@cp $(TARGET) tester/philo
+	@echo -e "\033[1;32mTester cloned and moved to ./bin\033[0m 🧪"
+
 
 # Display help
 help:
 	@echo -e "\033[1;32mMakefile for C Philo\033[0m"
 	@echo -e "\033[1;34mUsage:\033[0m"
-	@echo -e " \033[1;33mmake\033[0m               	- Build the program"
-	@echo -e " \033[1;33mmake clean\033[0m         	- Remove object files"
-	@echo -e " \033[1;33mmake fclean\033[0m        	- Remove all files"
+	@echo -e " \033[1;33mmake\033[0m               		- Build the program"
+	@echo -e " \033[1;33mmake clean\033[0m         		- Remove object files"
+	@echo -e " \033[1;33mmake fclean\033[0m        		- Remove all files"
 	@echo -e " \033[1;33mmake run ARGS=\"...\"\033[0m 	- Build and run with arguments"
+	@echo -e " \033[1;33mmake tester\033[0m           	- Download philo tester"
 	@echo -e " \033[1;33mmake help\033[0m           	- Display this help information"
 
 .PHONY: all clean fclean re run help directories

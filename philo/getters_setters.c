@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:32:07 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/01 12:32:09 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:18:33 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	set_bool(t_mtx *mtx, bool *dest, bool value)
 {
-	safe_mtx(mtx, LOCK);
+	pthread_mutex_lock(mtx);
 	*dest = value;
-	safe_mtx(mtx, UNLOCK);
+	pthread_mutex_unlock(mtx);
 }
 
 bool	get_bool(t_mtx *mtx, bool *value)
 {
 	bool	ret;
 
-	safe_mtx(mtx, LOCK);
+	pthread_mutex_lock(mtx);
 	ret = *value;
-	safe_mtx(mtx, UNLOCK);
+	pthread_mutex_unlock(mtx);
 	return (ret);
 }
 
@@ -33,17 +33,17 @@ long	get_long(t_mtx *mtx, long *value)
 {
 	long	ret;
 
-	safe_mtx(mtx, LOCK);
+	pthread_mutex_lock(mtx);
 	ret = *value;
-	safe_mtx(mtx, UNLOCK);
+	pthread_mutex_unlock(mtx);
 	return (ret);
 }
 
 void	set_long(t_mtx *mtx, long *dest, long value)
 {
-	safe_mtx(mtx, LOCK);
+	pthread_mutex_lock(mtx);
 	*dest = value;
-	safe_mtx(mtx, UNLOCK);
+	pthread_mutex_unlock(mtx);
 }
 
 bool	simulation_finish(t_table *table)
