@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:32:20 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/06 15:45:40 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/06 20:47:50 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	data_init(t_table *table)
 	table->thread_ready = false;
 	table->threads_running_nbr = 0;
 	safe_mtx(&table->table_mtx, INIT);
-	safe_mtx(&table->write_mtx, INIT);
 	table->philo = safe_malloc(sizeof(t_philo) * table->philosophers);
 	table->forks = safe_malloc(sizeof(t_fork) * table->philosophers);
 	while (++i < table->philosophers)

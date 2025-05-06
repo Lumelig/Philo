@@ -6,25 +6,17 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:28:40 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/06 18:03:28 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/06 21:00:27 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	thinking(t_philo *philo, bool pre_sim)
+void	thinking(t_philo *philo)
 {
-	long	time_since_meal;
-	long	think_time;
-
-	write_philo_status("is thinking", philo);
-	if (pre_sim)
+	if (simulation_finish(philo->table))
 		return ;
-	time_since_meal = gettime(MILLISECOND) - get_long(&philo->philo_mtx,
-			&philo->last_meal);
-	think_time = philo->table->time_to_die / 4 - time_since_meal / 4;
-	if (think_time > 0 && think_time < philo->table->time_to_die / 2)
-		my_usleep(think_time * 1000, philo->table);
+	write_philo_status(G"is thinking", philo);
 }
 
 void	*one_philo(void *arg)
@@ -32,7 +24,7 @@ void	*one_philo(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	set_long(&philo->philo_mtx, &philo->last_meal, gettime(MILLISECOND));
+	set_long(&philo->philo_mtx, &philo->last_meal, time_now());
 	increase_long(&philo->table->table_mtx, &philo->table->threads_running_nbr);
 	write_philo_status("has taken a fork", philo);
 	while (!simulation_finish(philo->table))
@@ -48,10 +40,10 @@ static void	eat(t_philo *philo)
 	write_philo_status("has taken a fork", philo);
 	pthread_mutex_lock(&philo->second_fork->fork);
 	write_philo_status("has taken a fork", philo);
-	set_long(&philo->philo_mtx, &philo->last_meal, gettime(MILLISECOND));
+	set_long(&philo->philo_mtx, &philo->last_meal, time_now());
 	philo->meals++;
-	write_philo_status("is eating", philo);
-	my_usleep(philo->table->time_to_eat, philo->table);
+	write_philo_status(B"is eating", philo);
+	ft_usleep(philo->table->time_to_eat);
 	if (philo->table->meals_limit > 0
 		&& philo->meals == philo->table->meals_limit)
 		set_bool(&philo->philo_mtx, &philo->full, true);
@@ -66,7 +58,7 @@ void	*dinner_simulation(void *data)
 	philo = (t_philo *)data;
 	pthread_mutex_lock(&philo->table->table_mtx);
 	pthread_mutex_unlock(&philo->table->table_mtx);
-	set_long(&philo->philo_mtx, &philo->last_meal, gettime(MILLISECOND));
+	set_long(&philo->philo_mtx, &philo->last_meal, time_now());
 	increase_long(&philo->table->table_mtx, &philo->table->threads_running_nbr);
 	de_sync_philo(philo);
 	while (!simulation_finish(philo->table))
@@ -74,9 +66,9 @@ void	*dinner_simulation(void *data)
 		if (philo->full)
 			break ;
 		eat(philo);
-		write_philo_status("is sleeping", philo);
-		my_usleep(philo->table->time_to_sleep, philo->table);
-		thinking(philo, false);
+		write_philo_status(Y"is sleeping", philo);
+		ft_usleep(philo->table->time_to_sleep);
+		thinking(philo);
 	}
 	return (NULL);
 }
@@ -99,7 +91,7 @@ void	start_process(t_table *table)
 				&table->philo[i], CREATE);
 	}
 	safe_thread(&table->monitor, monitor_dinner, table, CREATE);
-	table->start = gettime(MILLISECOND);
+	table->start = time_now();
 	pthread_mutex_unlock(&table->table_mtx);
 	i = -1;
 	while (++i < table->philosophers)

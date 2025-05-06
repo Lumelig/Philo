@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 17:08:01 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/03 16:02:39 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/06 19:59:06 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ void	check_input(t_table *table, char **argv)
 {
 	table->philosophers = ft_atol(argv[1]);
 	table->time_to_die = ft_atol(argv[2]);
-	table->time_to_eat = ft_atol(argv[3]) * 1e3;
-	table->time_to_sleep = ft_atol(argv[4]) * 1e3;
-	if (table->time_to_die < 60 || table->time_to_eat < 6e4
-		|| table->time_to_sleep < 6e4)
+	table->time_to_eat = ft_atol(argv[3]);
+	table->time_to_sleep = ft_atol(argv[4]);
+	if (table->time_to_die < 60 || table->time_to_eat < 60
+		|| table->time_to_sleep < 60)
 		error_and_exit("Use values greater than 60ms!");
 	if (argv[5])
 		table->meals_limit = ft_atol(argv[5]);

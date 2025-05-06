@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:53:11 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/06 17:35:05 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/06 20:48:01 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,13 @@ struct					s_table
 	long				time_to_sleep;
 	long				time_to_eat;
 	long				meals_limit;
-	long				start;//philo start 
+	long				start;
 	long				ende;
 	bool				ende_program;
 	bool				thread_ready;
 	long				threads_running_nbr;
 	pthread_t			monitor;
 	t_mtx				table_mtx;
-	t_mtx				write_mtx;
 	t_fork				*forks;
 	t_philo				*philo;
 };
@@ -95,12 +94,13 @@ void					*safe_malloc(size_t bytes);
 void					safe_mtx(t_mtx *mutex, t_opcode opcode);
 void					safe_thread(pthread_t *thread, void *(*foo)(void *),
 							void *data, t_opcode opcode);
-void					my_usleep(long usec, t_table *table);
+int						ft_usleep(long time);
 long					gettime(t_time_code time_code);
+long					time_now(void);
 void					increase_long(t_mtx *mtx, long *value);
 
 void					data_init(t_table *table);
-void					thinking(t_philo *philo, bool pre_sim);
+void					thinking(t_philo *philo);
 
 bool					simulation_finish(t_table *table);
 void					set_long(t_mtx *mtx, long *dest, long value);

@@ -6,32 +6,28 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:21:58 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/03 15:09:44 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/06 20:47:37 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	my_usleep(long usec, t_table *table)
+long	time_now(void)
 {
-	long	start;
-	long	elapsed;
-	long	remain;
+	struct timeval	now;
 
-	(void)table;
-	start = gettime(MICROSECOND);
-	while (gettime(MICROSECOND) - start < usec)
-	{
-		elapsed = gettime(MICROSECOND);
-		remain = usec - elapsed;
-		if (remain > 1e3)
-			usleep(remain / 2);
-		else
-		{
-			while (gettime(MICROSECOND) - start < usec)
-				;
-		}
-	}
+	gettimeofday(&now, NULL);
+	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
+}
+
+int	ft_usleep(long time)
+{
+	long int	start_time;
+
+	start_time = time_now();
+	while ((time_now() - start_time) < time)
+		usleep(150);
+	return (1);
 }
 
 long	gettime(t_time_code time_code)
@@ -70,7 +66,6 @@ void	clean_all(t_table *tabel)
 	}
 	i = -1;
 	safe_mtx(&tabel->table_mtx, DESTROY);
-	safe_mtx(&tabel->write_mtx, DESTROY);
 	free(tabel->forks);
 	free(tabel->philo);
 }

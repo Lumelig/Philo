@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:34:16 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/06 18:04:47 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/06 19:52:26 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static bool	philo_died(t_philo *philo)
 	pthread_mutex_unlock(&philo->philo_mtx);
 	if (is_full)
 		return (false);
-	elapse = gettime(MILLISECOND) - last_meal_time;
+	elapse = time_now() - last_meal_time;
 	t_to_die = philo->table->time_to_die;
 	if (elapse > t_to_die)
 	{
@@ -51,7 +51,7 @@ void	*monitor_dinner(void *data)
 			if (philo_died(table->philo + i) && !simulation_finish(table))
 			{
 				set_bool(&table->table_mtx, &table->ende_program, true);
-				printf(M "%-6ld" RED "%d died\n" RST, (gettime(MILLISECOND)
+				printf(M "%-6ld" RED "%d died\n" RST, (time_now()
 						- table->start), table->philo->id);
 			}
 		}
