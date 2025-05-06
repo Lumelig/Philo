@@ -3,8 +3,9 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -Iinclude -Isrc
 
 # Directories
-OBJ_DIR = obj
-BIN_DIR = bin
+OBJ_DIR 	= obj
+BIN_DIR 	= bin
+TESTER_DIR 	= tester
 
 # Target executable name
 TARGET = $(BIN_DIR)/philo
@@ -42,7 +43,7 @@ clean:
 
 # Clean everything
 fclean:
-	@rm -rf $(OBJ_DIR) $(BIN_DIR)
+	@rm -rf $(OBJ_DIR) $(BIN_DIR) $(TESTER_DIR)
 	@echo -e "\033[1;32mEverything is deleted\033[0m"
 
 # Rebuild everything
@@ -51,6 +52,11 @@ re: fclean all
 # Run the program
 run: all
 	$(TARGET) $(ARGS)
+
+# Clone Tester repository
+tester:
+	@git clone https://github.com/MichelleJiam/LazyPhilosophersTester.git tester
+	@echo -e "\033[1;32mTester cloned to ./tester\033[0m 🧪"
 
 # Display help
 help:
