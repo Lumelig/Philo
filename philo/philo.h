@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:53:11 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/07 11:59:07 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:30:31 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef enum e_opcode
 	JOIN,
 	DETACH,
 }						t_opcode;
-
 
 typedef pthread_mutex_t	t_mtx;
 
