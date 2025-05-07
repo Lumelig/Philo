@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:53:11 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/06 20:48:01 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/07 11:59:07 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 
 typedef enum e_opcode
 {
-	LOCK,
-	UNLOCK,
 	INIT,
 	DESTROY,
 	CREATE,
@@ -39,12 +37,6 @@ typedef enum e_opcode
 	DETACH,
 }						t_opcode;
 
-typedef enum e_time_code
-{
-	SECOND,
-	MILLISECOND,
-	MICROSECOND,
-}						t_time_code;
 
 typedef pthread_mutex_t	t_mtx;
 
@@ -95,7 +87,6 @@ void					safe_mtx(t_mtx *mutex, t_opcode opcode);
 void					safe_thread(pthread_t *thread, void *(*foo)(void *),
 							void *data, t_opcode opcode);
 int						ft_usleep(long time);
-long					gettime(t_time_code time_code);
 long					time_now(void);
 void					increase_long(t_mtx *mtx, long *value);
 
@@ -111,8 +102,6 @@ void					set_bool(t_mtx *mtx, bool *dest, bool value);
 void					wait_philo(t_table *table);
 
 void					write_philo_status(char *msg, t_philo *philo);
-// void					write_status(t_philo_status status, t_philo *philo,
-// 							bool debug);
 void					de_sync_philo(t_philo *philo);
 void					start_process(t_table *table);
 void					*monitor_dinner(void *daye);

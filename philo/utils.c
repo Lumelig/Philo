@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:21:58 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/06 20:47:37 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/07 12:01:05 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,6 @@ int	ft_usleep(long time)
 	return (1);
 }
 
-long	gettime(t_time_code time_code)
-{
-	struct timeval	tv;
-
-	if (gettimeofday(&tv, NULL))
-		error_and_exit("Gettimeofday failed");
-	if (SECOND == time_code)
-		return (tv.tv_sec + (tv.tv_usec / 1e6));
-	else if (MILLISECOND == time_code)
-		return ((tv.tv_sec * 1e3) + (tv.tv_usec / 1e3));
-	else if (MICROSECOND == time_code)
-		return ((tv.tv_sec * 1e6) + tv.tv_usec);
-	else
-		error_and_exit("Wrong input to gettime");
-	return (0);
-}
-
 void	error_and_exit(const char *error)
 {
 	printf(RED "%s\n" RST, error);
@@ -68,4 +51,15 @@ void	clean_all(t_table *tabel)
 	safe_mtx(&tabel->table_mtx, DESTROY);
 	free(tabel->forks);
 	free(tabel->philo);
+}
+
+void	write_philo_status(char *msg, t_philo *philo)
+{
+	long	time;
+
+	time = time_now() - philo->table->start;
+	pthread_mutex_lock(&philo->table->table_mtx);
+	if (!philo->table->ende_program)
+		printf(M "%-6ld" C "%d %s\n" RST, time, philo->id, msg);
+	pthread_mutex_unlock(&philo->table->table_mtx);
 }

@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:34:52 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/06 18:01:44 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/07 11:59:58 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ static void	mutex_error(int status, t_opcode opcode)
 {
 	if (0 == status)
 		return ;
-	if (EINVAL == status && (LOCK == opcode || UNLOCK == opcode))
-		error_and_exit("Ther value specified by mutex is invalid.");
-	else if (EINVAL == status && (INIT == opcode))
+	if (EINVAL == status && (INIT == opcode))
 		error_and_exit("The value specified by attr is invalid");
 	else if (EDEADLK == status)
 		error_and_exit("A deadlock would occur if the"
