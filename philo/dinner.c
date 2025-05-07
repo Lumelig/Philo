@@ -6,18 +6,11 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:28:40 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/06 21:00:27 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:45:00 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	thinking(t_philo *philo)
-{
-	if (simulation_finish(philo->table))
-		return ;
-	write_philo_status(G"is thinking", philo);
-}
 
 void	*one_philo(void *arg)
 {
@@ -68,7 +61,7 @@ void	*dinner_simulation(void *data)
 		eat(philo);
 		write_philo_status(Y"is sleeping", philo);
 		ft_usleep(philo->table->time_to_sleep);
-		thinking(philo);
+		write_philo_status(G"is thinking", philo);
 	}
 	return (NULL);
 }

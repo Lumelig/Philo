@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:36:56 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/07 15:37:11 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:50:47 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,11 @@ void	increase_long(t_mtx *mtx, long *value)
 
 void	de_sync_philo(t_philo *philo)
 {
-	if (!philo->table->philosophers % 2 == 0)
-	{
-		if (!philo->id % 2 == 0)
-			thinking(philo);
-	}
+	if (!philo->id % 2 == 0)
+		write_philo_status(G"is thinking", philo);
 	else
 	{
-		if (philo->id % 2)
-			thinking(philo);
+		write_philo_status(G"is thinking", philo);
+		ft_usleep(philo->table->time_to_eat / 2);
 	}
 }
