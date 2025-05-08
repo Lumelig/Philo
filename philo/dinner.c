@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:28:40 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/07 19:45:00 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:12:56 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ static void	eat(t_philo *philo)
 	philo->meals++;
 	write_philo_status(B"is eating", philo);
 	ft_usleep(philo->table->time_to_eat);
+	pthread_mutex_unlock(&philo->first_fork->fork);
+	pthread_mutex_unlock(&philo->second_fork->fork);
 	if (philo->table->meals_limit > 0
 		&& philo->meals == philo->table->meals_limit)
 		set_bool(&philo->philo_mtx, &philo->full, true);
-	pthread_mutex_unlock(&philo->second_fork->fork);
-	pthread_mutex_unlock(&philo->first_fork->fork);
 }
 
 void	*dinner_simulation(void *data)

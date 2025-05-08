@@ -1,6 +1,6 @@
 # Compiler and compiler flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -Iinclude -Isrc -Wunused
+CFLAGS = -Wall -Wextra -Werror -g -Iinclude -Isrc -pthread
 
 # Directories
 OBJ_DIR 	= obj
