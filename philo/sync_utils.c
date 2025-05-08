@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:36:56 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/08 14:07:31 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:39:54 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	increase_long(t_mtx *mtx, long *value)
 
 void	de_sync_philo(t_philo *philo)
 {
-	if (!philo->id % 2 == 0)
+	if (philo->id % 2 == 0)
 		write_philo_status(G"is thinking", philo);
 	else
 	{
