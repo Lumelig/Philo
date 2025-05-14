@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:21:58 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/08 14:00:49 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:58:26 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,21 @@ long	time_now(void)
 	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
 }
 
-int	ft_usleep(long time)
+void	ft_usleep(long time, t_table *table)
 {
 	long int	start_time;
+	long		elapsed;
 
 	start_time = time_now();
-	while ((time_now() - start_time) < time)
-		usleep(150);
-	return (1);
+	while (1)
+    {
+        if (simulation_finish(table))
+            return;
+        usleep(10000);
+        elapsed = time_now() - start_time;
+        if (elapsed >= time)
+            return;
+    }
 }
 
 void	error_and_exit(const char *error)
@@ -47,8 +54,9 @@ void	clean_all(t_table *tabel)
 		philo = tabel->philo + i;
 		safe_mtx(&philo->philo_mtx, DESTROY);
 	}
+
 	i = -1;
-	safe_mtx(&tabel->table_mtx, DESTROY);
+	pthread_mutex_destroy(&tabel->table_mtx);
 	free(tabel->forks);
 	free(tabel->philo);
 }

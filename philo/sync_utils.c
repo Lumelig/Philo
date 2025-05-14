@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:36:56 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/08 15:39:54 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:58:53 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ void	de_sync_philo(t_philo *philo)
 	else
 	{
 		write_philo_status(G"is thinking", philo);
-		ft_usleep(philo->table->time_to_eat / 2);
+		ft_usleep(philo->table->time_to_eat / 2, philo->table);
 	}
 }

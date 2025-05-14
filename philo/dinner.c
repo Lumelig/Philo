@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:28:40 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/08 15:33:02 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:58:09 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	eat(t_philo *philo)
 	set_long(&philo->philo_mtx, &philo->last_meal, time_now());
 	philo->meals++;
 	write_philo_status(B"is eating", philo);
-	ft_usleep(philo->table->time_to_eat);
+	ft_usleep(philo->table->time_to_eat, philo->table);
 	pthread_mutex_unlock(&philo->second_fork->fork);
 	pthread_mutex_unlock(&philo->first_fork->fork);
 	if (philo->table->meals_limit > 0
@@ -60,7 +60,7 @@ void	*dinner_simulation(void *data)
 			break ;
 		eat(philo);
 		write_philo_status(Y"is sleeping", philo);
-		ft_usleep(philo->table->time_to_sleep);
+		ft_usleep(philo->table->time_to_sleep, philo->table);
 		write_philo_status(G"is thinking", philo);
 	}
 	return (NULL);
@@ -91,4 +91,5 @@ void	start_process(t_table *table)
 		safe_thread(&table->philo[i].thread_id, NULL, NULL, JOIN);
 	set_bool(&table->table_mtx, &table->ende_program, true);
 	safe_thread(&table->monitor, NULL, NULL, JOIN);
+	
 }

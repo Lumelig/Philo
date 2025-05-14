@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:34:16 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/07 19:46:07 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/13 12:12:16 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	*monitor_dinner(void *data)
 				set_bool(&table->table_mtx, &table->ende_program, true);
 				printf(M "%-6ld" RED "%d died\n" RST, (time_now()
 						- table->start), (table->philo)[i].id);
+				return (NULL);
 			}
 		}
 	}
