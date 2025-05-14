@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:32:20 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/08 14:09:41 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/14 17:24:11 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,16 @@ static void	assign_forks(t_philo *philo, t_fork *forks, int position)
 	philo_nbr = philo->table->philosophers;
 	left_fork = position;
 	right_fork = (position + 1) % philo_nbr;
-	philo->first_fork = &forks[left_fork];
-	philo->second_fork = &forks[right_fork];
+	if (position % 2 == 0)
+	{
+		philo->first_fork = &forks[left_fork];
+		philo->second_fork = &forks[right_fork];
+	}
+	else
+	{
+		philo->first_fork = &forks[right_fork];
+		philo->second_fork = &forks[left_fork];
+	}
 }
 
 static void	philo_init(t_table *table)

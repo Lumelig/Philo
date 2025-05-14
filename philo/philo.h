@@ -6,7 +6,7 @@
 /*   By: jpflegha <jpflegha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:53:11 by jpflegha          #+#    #+#             */
-/*   Updated: 2025/05/13 12:19:35 by jpflegha         ###   ########.fr       */
+/*   Updated: 2025/05/14 17:48:23 by jpflegha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void					*safe_malloc(size_t bytes);
 void					safe_mtx(t_mtx *mutex, t_opcode opcode);
 void					safe_thread(pthread_t *thread, void *(*foo)(void *),
 							void *data, t_opcode opcode);
-							void	ft_usleep(long time, t_table *s_table);
+void					ft_usleep(long time, t_table *s_table);
 long					time_now(void);
 void					increase_long(t_mtx *mtx, long *value);
 
