@@ -20,7 +20,16 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
 # Default target
 all: directories $(TARGET)
-	@echo -e "\033[1;32mProgram ready\033[0m ✅"
+	@printf "\n\033[95m" ; \
+	printf "  ██████╗\n" ; \
+	printf "  ██╔═══ \n" ; \
+	printf "  ██║    \n" ; \
+	printf "  ██║    \n" ; \
+	printf "  ██████║\n" ; \
+	printf "  ╚═════╝\n" ; \
+	printf "Creating $(TARGET)...\n " ; \
+	printf "\033[0m\n"
+
 
 # Create necessary directories
 directories:
@@ -39,12 +48,12 @@ $(OBJ_DIR)/%.o: %.c
 # Clean object files
 clean:
 	@rm -rf $(OBJ_DIR)
-	@echo -e "\033[1;32mObject directory deleted\033[0m"
+	@echo  "\033[1;32mObject directory deleted\033[0m"
 
 # Clean everything
 fclean:
 	@rm -rf $(OBJ_DIR) $(BIN_DIR) $(TESTER_DIR)
-	@echo -e "\033[1;32mEverything is deleted\033[0m"
+	@echo  "\033[1;32mEverything is deleted\033[0m"
 
 # Rebuild everything
 re: fclean all
@@ -62,13 +71,14 @@ tester: all
 
 # Display help
 help:
-	@echo -e "\033[1;32mMakefile for C Philo\033[0m"
-	@echo -e "\033[1;34mUsage:\033[0m"
-	@echo -e " \033[1;33mmake\033[0m               		- Build the program"
-	@echo -e " \033[1;33mmake clean\033[0m         		- Remove object files"
-	@echo -e " \033[1;33mmake fclean\033[0m        		- Remove all files"
-	@echo -e " \033[1;33mmake run ARGS=\"...\"\033[0m 	- Build and run with arguments"
-	@echo -e " \033[1;33mmake tester\033[0m           	- Download philo tester"
-	@echo -e " \033[1;33mmake help\033[0m           	- Display this help information"
+	@printf "\033[1;32mMakefile for C Philo\033[0m\n"
+	@printf "\033[1;34mUsage:\033[0m\n"
+	@printf " \033[1;33mmake\033[0m               	- Build the program\n"
+	@printf " \033[1;33mmake clean\033[0m         	- Remove object files\n"
+	@printf " \033[1;33mmake fclean\033[0m        	- Remove all files\n"
+	@printf " \033[1;33mmake run ARGS=\\\"...\\\"\033[0m 	- Build and run with arguments\n"
+	@printf " \033[1;33mmake tester\033[0m           	- Download philo tester\n"
+	@printf " \033[1;33mmake help\033[0m           	- Display this help information\n"
+
 
 .PHONY: all clean fclean re run help directories
